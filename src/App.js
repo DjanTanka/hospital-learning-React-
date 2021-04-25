@@ -7,10 +7,10 @@ function App() {
   return (
     <div>
      <Switch>
-       <Route path="/1" component={Author}></Route>
-       <Route path="/2" component={Registr}></Route>
-       <Route path="/3" component={Appoint}></Route>
-       <Redirect from="/" to='/1' />
+       <Route path="/author" component={Author}></Route>
+       <Route path="/registr" component={Registr}></Route>
+       <Route path="/appoint" component={Appoint}></Route>
+       <Redirect from="/" to='/author' />
      </Switch>
     </div>
   );

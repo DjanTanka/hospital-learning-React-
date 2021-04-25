@@ -15,7 +15,7 @@
 .MuiToolbar-root.myToolBar {
   background-color :#C5E9FF;
   width: 100vw;
-  max-width: 1200px;
+  max-width: 990px;
   min-width: 990px;
   height: 117px;
   margin: 0 auto;
@@ -91,7 +91,7 @@
       width: 321px;
       height: 40px;
     } 
-
+  
     .registrationButtons {
       text-align: left;
       width: 100%;
@@ -109,9 +109,14 @@
         height: 40px;
         text-transform: none;
         font-size: 18px;
+
       }
     }
   }
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: red;
 }
 @media screen and (max-width: 575px) {
 

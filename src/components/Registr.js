@@ -1,9 +1,10 @@
 import React from 'react';
 import '../components/Registr.scss'
+import  { useHistory } from 'react-router-dom'
 import {
   AppBar,
   Toolbar,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import logo from '../img/logo.png';
@@ -16,6 +17,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 
 const Registr = () => {
+  let history = useHistory();
   const [values, setValues] = React.useState({
     amount: '',
     password: '',
@@ -34,12 +36,16 @@ const Registr = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const goToAuthor = () => {
+    history.push('/author');
+  }
   return (
     <>
       <AppBar position="static" className='app'>
-        <Toolbar classname="myToolBar">
+        <Toolbar className="myToolBar">
           <IconButton edge="start" className='menuButton' aria-label="menu">
-            <img src={logo} />
+            <img src={logo} alt='mainLo'/>
           </IconButton>
           <Typography className='title'>
             Зарегистрироваться в системе
@@ -47,7 +53,7 @@ const Registr = () => {
         </Toolbar>
       </AppBar>
       <Container className='container'>
-        <img src={bigLogo} width='375px' height='375px' />
+        <img src={bigLogo} width='375px' height='375px' alt='bigLogo' />
         <div className='registrationDiv'>
           <h1 className='containerh1'> Регистрация</h1>
           <div className="labelInput">
@@ -55,7 +61,7 @@ const Registr = () => {
              <OutlinedInput
               className="input"
               placeholder="Login"
-              id="outlined-adornment-password"
+              id="login"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange('password')}
@@ -66,7 +72,7 @@ const Registr = () => {
           <OutlinedInput 
             className="input"
             placeholder="Password"
-            id="outlined-adornment-password"
+            id="password"
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
@@ -88,7 +94,7 @@ const Registr = () => {
           <OutlinedInput
             className="input"
             placeholder="Repeat password"
-            id="outlined-adornment-password"
+            id="repeatPassword"
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
@@ -107,7 +113,7 @@ const Registr = () => {
           </div>
           <div className="registrationButtons">
             <Button variant="outlined">Зарегистрироваться</Button>
-            <Button>Авторизироваться</Button>
+            <Button onClick ={()=>goToAuthor()}>Авторизироваться</Button>
           </div>
         </div>
       </Container>
