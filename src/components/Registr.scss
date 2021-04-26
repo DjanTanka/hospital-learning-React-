@@ -5,8 +5,7 @@
 
 .MuiAppBar-colorPrimary.app {
   background-color: #C5E9FF;
-  width: 50vw;
-  max-width: 1200px;
+  width: 100vw;
   min-width: 990px;
   height: 117px;
   margin: 0 auto;
@@ -15,9 +14,8 @@
 .MuiToolbar-root.myToolBar {
   background-color :#C5E9FF;
   width: 100vw;
-  max-width: 990px;
   min-width: 990px;
-  height: 117px;
+  height:20vh;
   margin: 0 auto;
   padding: 0px;
 }
@@ -41,8 +39,7 @@
   background-color:#C5E9FF;
   height: 40vh;
   min-height: 590px;
-  width: 50vw;
-  max-width: 1200px;
+  width: 100vw;
   min-width: 990px;
   margin: 0 auto;
   display: flex;
@@ -55,8 +52,10 @@
   }
 
   .registrationDiv {
-    width: 400px;
-    height: 450px;
+    width: 50vw;
+    max-width: 450px;
+    height: 70vh;
+    min-height: 500px;
     background: white;
     text-align: center;
     border-radius: 5px;
@@ -88,8 +87,9 @@
     }
 
     .MuiInputBase-root.input {
-      width: 321px;
-      height: 40px;
+      width: 45vw;
+      max-width: 350px;
+      height: 6vh;
     } 
   
     .registrationButtons {
@@ -118,6 +118,12 @@
 .MuiOutlinedInput-notchedOutline {
   border-color: red;
 }
+@media (min-width: 1280px) {
+  .container.MuiContainer-maxWidthLg {
+    max-width: none;
+  }
+}
+
 @media screen and (max-width: 575px) {
 
 // .MuiPaper-elevation4.app {

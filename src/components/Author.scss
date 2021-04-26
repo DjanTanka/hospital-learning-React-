@@ -5,8 +5,7 @@
   
   .MuiAppBar-colorPrimary.app {
     background-color: #C5E9FF;
-    width: 50vw;
-    max-width: 1200px;
+    width: 100vw;
     min-width: 990px;
     height: 117px;
     margin: 0 auto;
@@ -15,7 +14,6 @@
   .MuiToolbar-root.myToolBar {
     background-color :#C5E9FF;
     width: 100vw;
-    max-width: 990px;
     min-width: 990px;
     height: 117px;
     margin: 0 auto;
@@ -41,8 +39,7 @@
     background-color:#C5E9FF;
     height: 40vh;
     min-height: 590px;
-    width: 50vw;
-    max-width: 1200px;
+    width: 100vw;
     min-width: 990px;
     margin: 0 auto;
     display: flex;

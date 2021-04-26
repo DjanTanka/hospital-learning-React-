@@ -20,12 +20,14 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 
 const Registr = () => {
-   let history = useHistory();
+  let history = useHistory();
+
   const [values, setValues] = useState({
     login: '',
+    loginError: false,
     password: '',
     repeatPassword: '',
-    rightRepeatPassword: 'false',
+    rightRepeatPassword: false,
     showPassword: false,
   });
 
@@ -33,6 +35,7 @@ const Registr = () => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
   const [open, setOpen] = useState(false);
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -40,27 +43,9 @@ const Registr = () => {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
-    }
+    };
   }
 
-
-  const handleChange = (prop) => (e) => {
-    setValues({ ...values, [prop]: e.target.value });
-    if (values.password === '' && values.repeatPassword !=="") {
-    (values.password !== values.repeatPassword)
-      ? console.log ('не совпадает')
-      : console.log ('совпадает')}
-  };
-
-  const ChangeRepeatPassword = (prop) => (e) => {
-    setValues({ ...values, [prop]: e.target.value });
-    // if (values.password !== values.repeatPassword) {
-    //   setValues(values.rightRepeatPassword = !values.rightRepeatPassword)
-    //   console.log(values.rightRepeatPassword)
-    // }
-    
-
-  }
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
@@ -71,14 +56,36 @@ const Registr = () => {
 
   const goToAuthor = () => {
     history.push('/author');
+  };
+
+  const funcLogin = (prop) => (e) => {
+    setValues({ ...values, [prop]: e.target.value });
+  };
+
+  const funcLoginBlur = () => {
+    if (/(?=.*[A-Za-z])(?=.*[0-9]){6,}/.test(values.login))
+    {console.log("пр")
+    setValues({ ...values, loginError: false });}
+    else {
+      setValues({ ...values, loginError: true });
+      console.log(values.loginError)
+    }
   }
+
+  const funcPassword = (prop) => (e) => {
+    setValues({ ...values, [prop]: e.target.value });
+  };
+
+  const funcRepeatPassword = (prop) => (e) => {
+    setValues({ ...values, [prop]: e.target.value });
+  };
 
   const funcRegistration = () => {
     (values.password !== values.repeatPassword)
       ? console.log ('не отправляю на сервер')
       : console.log('отправляю на сервер', values)
-    
-  }
+  };
+
   return (
     <>
       <AppBar position='static' className='app'>
@@ -103,9 +110,10 @@ const Registr = () => {
                 id='login'
                 type='text'
                 value={values.login}
-                onChange={handleChange('login')}
+                onChange={funcLogin('login')}
+                onBlur={funcLoginBlur}
               />
-             <Alert severity="error">This is an error message!</Alert>
+            {values.loginError && <Alert severity="error">неверный пароль!</Alert>}
           </div>
           <div className='labelInput'>
           <label>Password:</label>
@@ -115,7 +123,7 @@ const Registr = () => {
             id='password'
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
-            onChange={handleChange('password')}
+            onChange={funcPassword('password')}
             endAdornment={
               <InputAdornment position='end'>
                 <IconButton
@@ -137,7 +145,7 @@ const Registr = () => {
             id='repeatPassword'
             type={values.showPassword ? 'text' : 'password'}
             value={values.repeatPassword}
-            onChange={ChangeRepeatPassword('repeatPassword', 'repeatRepeatPassword')}
+            onChange={funcRepeatPassword('repeatPassword', 'repeatRepeatPassword')}
             endAdornment={
               <InputAdornment position='end'>
                 <IconButton
@@ -151,7 +159,7 @@ const Registr = () => {
               
             }
           />
-           <Alert severity="error">Пароли должны совпадать!</Alert>
+           {values.rightRepeatPassword && <Alert severity="error">Пароли должны совпадать!</Alert>}
           </div>
           <div className='registrationButtons'>
             <Button variant='outlined' onClick ={()=>funcRegistration()}>Зарегистрироваться</Button>
