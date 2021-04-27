@@ -9,19 +9,18 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
-  Button,
-  Snackbar,  
+  Button, 
 } from '@material-ui/core';
 import logo from '../img/logo.png';
 import bigLogo from '../img/bigLogo.png';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import axios from 'axios';
 
 const Registr = () => {
+  
   let history = useHistory();
-
   const [values, setValues] = useState({
     login: '',
     loginError: false,
@@ -34,17 +33,18 @@ const Registr = () => {
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
-  const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const [open, setOpen] = useState(false);
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    };
-  }
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   };
+  // };
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -59,18 +59,20 @@ const Registr = () => {
   };
 
   const funcLogin = (prop) => (e) => {
-    setValues({ ...values, [prop]: e.target.value });
+   setValues({ ...values, [prop]: e.target.value });
   };
 
-  const funcLoginBlur = () => {
-    if (/(?=.*[A-Za-z])(?=.*[0-9]){6,}/.test(values.login))
-    {console.log("пр")
-    setValues({ ...values, loginError: false });}
-    else {
-      setValues({ ...values, loginError: true });
-      console.log(values.loginError)
-    }
-  }
+  const funcLoginBlur = (prop) => {
+    if (/^[a-zA-z]{1}[a-zA-Z1-9]{5,}/.test(values.login)){
+      setValues({ ...values, [prop]: false });
+    } else {
+      setValues({ ...values, [prop]: true });
+    };
+  };
+
+  const funcLoginFocus = (prop) => {
+    setValues({ ...values, [prop]: false });
+  };
 
   const funcPassword = (prop) => (e) => {
     setValues({ ...values, [prop]: e.target.value });
@@ -80,10 +82,19 @@ const Registr = () => {
     setValues({ ...values, [prop]: e.target.value });
   };
 
-  const funcRegistration = () => {
-    (values.password !== values.repeatPassword)
-      ? console.log ('не отправляю на сервер')
-      : console.log('отправляю на сервер', values)
+  const funcRegistration = async (prop) => {
+    if (values.password === values.repeatPassword) {
+      await axios.post('http://localhost:8000/addNewUser', {
+      login: values.login,
+      password: values.password
+    })
+    .then(res => history.push('/appoint'))
+    .catch(err => console.log('Пользоватль с данным логином уже существует'))
+  } 
+    else {
+      console.log('зашло в элс')
+      setValues({ ...values, [prop]: true}) 
+    }
   };
 
   return (
@@ -99,7 +110,7 @@ const Registr = () => {
         </Toolbar>
       </AppBar>
       <Container className='container'>
-        <img src={bigLogo} width='375px' height='375px' alt='bigLogo' />
+        <img src={bigLogo} width='30%'  alt='bigLogo' />
         <div className='registrationDiv'>
           <h1 className='containerh1'> Регистрация</h1>
           <div className='labelInput'>
@@ -111,9 +122,14 @@ const Registr = () => {
                 type='text'
                 value={values.login}
                 onChange={funcLogin('login')}
-                onBlur={funcLoginBlur}
+                onBlur={() => funcLoginBlur('loginError')}
+                onFocus={() => funcLoginFocus('loginError')}
               />
-            {values.loginError && <Alert severity="error">неверный пароль!</Alert>}
+            {values.loginError && 
+              <Alert severity="error"> 
+                 Пароль должен состоять минимум из 6 символов латинского алфавита и содержать минимум 1 цифру
+              </Alert>
+            }
           </div>
           <div className='labelInput'>
           <label>Password:</label>
@@ -156,20 +172,18 @@ const Registr = () => {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-              
             }
           />
            {values.rightRepeatPassword && <Alert severity="error">Пароли должны совпадать!</Alert>}
           </div>
           <div className='registrationButtons'>
-            <Button variant='outlined' onClick ={()=>funcRegistration()}>Зарегистрироваться</Button>
+            <Button variant='outlined' onClick ={()=>funcRegistration('rightRepeatPassword')}>Зарегистрироваться</Button>
             <Button onClick ={()=>goToAuthor()}>Авторизироваться</Button>
           </div>
         </div>
       </Container>
     </>
   )
-
 };
 
 export default Registr;

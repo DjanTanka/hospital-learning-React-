@@ -54,7 +54,7 @@ const Author = () => {
     </Toolbar>
   </AppBar>
   <Container className='container'>
-    <img src={bigLogo} width='375px' height='375px' alt='bigLogo' />
+    <img src={bigLogo} width='30%' alt='bigLogo' />
     <div className='registrationDiv'>
       <h1 className='containerh1'> Войти в систему</h1>
       <div className="labelInput">
