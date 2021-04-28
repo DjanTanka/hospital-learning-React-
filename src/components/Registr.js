@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import '../components/Registr.scss'
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import {
   AppBar,
   Toolbar,
@@ -9,17 +9,16 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
-  Button, 
+  Button
 } from '@material-ui/core';
-import logo from '../img/logo.png';
-import bigLogo from '../img/bigLogo.png';
+import MuiAlert from '@material-ui/lab/Alert';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import MuiAlert from '@material-ui/lab/Alert';
-import axios from 'axios';
+import logo from '../img/logo.png';
+import bigLogo from '../img/bigLogo.png';
+import '../components/Registr.scss';
 
 const Registr = () => {
-  
   let history = useHistory();
   const [values, setValues] = useState({
     login: '',
@@ -59,15 +58,13 @@ const Registr = () => {
   };
 
   const funcLogin = (prop) => (e) => {
-   setValues({ ...values, [prop]: e.target.value });
+    setValues({ ...values, [prop]: e.target.value });
   };
 
   const funcLoginBlur = (prop) => {
-    if (/^[a-zA-z]{1}[a-zA-Z1-9]{5,}/.test(values.login)){
-      setValues({ ...values, [prop]: false });
-    } else {
-      setValues({ ...values, [prop]: true });
-    };
+    (/^[a-zA-z]{1}[a-zA-Z1-9]{5,}/.test(values.login))
+    ? setValues({ ...values, [prop]: false })
+    : setValues({ ...values, [prop]: true });
   };
 
   const funcLoginFocus = (prop) => {
@@ -85,14 +82,12 @@ const Registr = () => {
   const funcRegistration = async (prop) => {
     if (values.password === values.repeatPassword) {
       await axios.post('http://localhost:8000/addNewUser', {
-      login: values.login,
-      password: values.password
-    })
-    .then(res => history.push('/appoint'))
-    .catch(err => console.log('Пользоватль с данным логином уже существует'))
-  } 
-    else {
-      console.log('зашло в элс')
+        login: values.login,
+        password: values.password
+      })
+      .then(res => history.push('/appoint'))
+      .catch(err => console.log('Пользоватль с данным логином уже существует'))
+    } else {
       setValues({ ...values, [prop]: true}) 
     }
   };
@@ -177,8 +172,12 @@ const Registr = () => {
            {values.rightRepeatPassword && <Alert severity="error">Пароли должны совпадать!</Alert>}
           </div>
           <div className='registrationButtons'>
-            <Button variant='outlined' onClick ={()=>funcRegistration('rightRepeatPassword')}>Зарегистрироваться</Button>
-            <Button onClick ={()=>goToAuthor()}>Авторизироваться</Button>
+            <Button variant='outlined' onClick ={()=>funcRegistration('rightRepeatPassword')}>
+              Зарегистрироваться
+            </Button>
+            <Button onClick ={()=>goToAuthor()}>
+              Авторизироваться
+            </Button>
           </div>
         </div>
       </Container>

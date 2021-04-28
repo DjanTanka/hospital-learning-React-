@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -7,4 +7,4 @@ const UserSchema = new Schema ({
   password: String
 });
 
-module.exports = User = mongoose.model('usersOfHospital', UserSchema)
+module.exports = User = mongoose.model('usersOfHospital', UserSchema);

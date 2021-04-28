@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
 const User = require('../../db/models/user/index');
 
-module.exports.getAllUsers = (req, res) =>  {
-  User.find().then(result =>{
-      res.send({data: result});
+module.exports.getAllUsers = (req, res) => {
+  User.find().then(result => {
+    res.send({data: result});
   });
 };
 
@@ -19,16 +19,14 @@ module.exports.addNewUser = async (req, res) =>  {
       password: bcrypt.hashSync(password, salt)
     });
     user.save().then(result => {
-      User.find().then(result1 => {
-        res.status(201).send({data: result1});
-      });
+      res.status(201).send("пользователь добавлен");
     });   
   };
 };
 
 module.exports.deleteUser = (req, res) =>  {
   User.deleteOne({_id: req.query._id}).then(result => {
-    User.find().then(result =>{
+    User.find().then(result => {
       res.send({data: result});
     });
   }).catch(err => console.log(err));
