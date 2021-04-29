@@ -1,7 +1,7 @@
 import  { Switch, Route, Redirect } from 'react-router-dom';
-import Author from './components/Author';
-import Registr from './components/Registr';
-import Appoint from './components/Appoint';
+import Author from './components/Author.js';
+import Registr from './components/Registr.js';
+import Appoint from './components/Appoint.js';
 
 function App() {
   return (

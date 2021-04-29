@@ -1,78 +1,147 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-.registrationDivAuthor {
-  width: 80vw;
-  max-width: 500px;
-  min-width: 400px;
-  height: 50vh;
-  min-height: 500px;
-  background: white;
-  text-align: center;
-  border-radius: 5px;
-  margin-right: 40px;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.MuiPaper-elevation4.app {
+  box-shadow: none;
+}
+
+.MuiAppBar-colorPrimary.app {
+  background-color: #C5E9FF;
+  width: 100vw;
+  min-width: 990px;
+  height: 15vh;
+  margin: 0 auto;
+}
+
+.MuiToolbar-root.myToolBar {
+  background-color :#C5E9FF;
+  width: 100vw;
+  min-width: 990px;
+  height:20vh;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+.MuiIconButton-root.menuButton {
+  margin-right: 50px;
+  padding-left: 45px 
+}
+
+.MuiTypography-root.title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 42px;
+  color: black;
+  padding-left: 75px;
+}
+
+.MuiContainer-root.container {
+  background-color:#C5E9FF;
+  height: 85vh;
+  min-height: 590px;
+  width: 100vw;
+  min-width: 990px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
+  box-shadow: inset 0px 15px 7px -5px rgba(128,128,128,0.5);
   align-items: center;
   
-  .labelInput {
+  img {
+    margin-left: 50px;
+    margin-right: 20px;
+    width: 30vw;
+    min-width: 500px;
+  }
+
+  .registrationDiv {
+    width: 55vw;
+    max-width: 500px;
+    min-width: 400px;
+    height: 60vh;
+    min-height: 500px;
+    background: white;
+    text-align: center;
+    border-radius: 5px;
+    margin-right: 40px;
     display: flex;
     flex-direction: column;
-    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+    
+    .labelInput {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
 
-    label {
+      label {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        text-align: left;
+        margin: 5px;
+        width: 50%;
+      }
+
+      .myStyleError{
+        background-color: #C5E9FF;;
+        width: 100%;
+        max-width: 400px;
+        font-weight: 300;
+        color: black;
+        font-size: 12px;
+        padding: 0px;
+      }
+    }
+
+    .containerh1 {
       font-family: Roboto;
       font-style: normal;
       font-weight: 300;
-      text-align: left;
-      margin: 5px;
-      width: 50%;
+      font-size: 36px;
+      line-height: 42px;
     }
 
-    .myStyleError{
-      background-color: #C5E9FF;;
+    .MuiInputBase-root.input {
       width: 100%;
       max-width: 400px;
-      font-weight: 300;
-      color: black;
-      font-size: 12px;
-      padding: 0px;
-    }
-  }
-
-  .containerh1 {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 42px;
-  }
-
-  .MuiInputBase-root.input {
-    width: 100%;
-    max-width: 400px;
-    height: 6vh;
-    min-height: 40px;
-    max-height: 50px;
-  } 
-
-  .registrationButtons {
-    text-align: left;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 20px;
-
-    button {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: 300;
-      line-height: 42px;
-      margin-right: 40px;
-      height: 40px;
-      text-transform: none;
-      font-size: 18px;
-      margin-bottom: 20px;
+      height: 6vh;
+      min-height: 40px;
+      max-height: 50px;
+    } 
+  
+    .registrationButtons {
+      text-align: left;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 20px;
+  
+      button {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 42px;
+        margin-right: 40px;
+        height: 40px;
+        text-transform: none;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
     }
   }
 }

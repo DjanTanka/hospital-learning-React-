@@ -1,101 +1,173 @@
-import React from 'react';
-import  { useHistory } from 'react-router-dom'
-import '../components/Author.scss'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import {
   AppBar,
   Toolbar,
   Typography,
+  Container,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  Button
 } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import logo from '../img/logo.png';
-import Container from '@material-ui/core/Container';
-import bigLogo from '../img/bigLogo.png';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputAdornment from '@material-ui/core/InputAdornment'
+import MuiAlert from '@material-ui/lab/Alert';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Button from '@material-ui/core/Button';
+import logo from '../img/logo.png';
+import bigLogo from '../img/bigLogo.png';
+import '../components/Author.scss';
 
 const Author = () => {
   let history = useHistory();
 
-  const [values, setValues] = React.useState({
-    amount: '',
+  const [values, setValues] = useState({
+    login: '',
+    loginError: false,
+    loginNotFound: false,
     password: '',
-    weight: '',
-    weightRange: '',
+    repeatPassword: '',
+    rightRepeatPassword: false,
     showPassword: false,
   });
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  };
+
+  const handleChangeLogin = (e) => {
+    setValues({ ...values, login: e.target.value });
+  };
+
+  const handleLoginBlur = () => {
+    if (values.login) {
+      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(values.login));
+      setValues({ ...values, loginError: !correctValue });
+    };
+  };
+
+  const handleLoginFocus = () => {
+    setValues({ ...values, loginError: false, loginNotFound: false });
+  };
+
+  const handlePassword = (e) => {
+    setValues({ ...values, password: e.target.value });
+  };
+
+  const handlePasswordBlur = () => {
+    if (values.password) {
+      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(values.password));
+      setValues({ ...values, passwordError: !correctValue1 });
+    };
+  };
+
+  const handlePasswordFocus = () => {
+    setValues({ ...values, passwordError: false });
   };
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   const goToRegistr = () => {
     history.push('/registr');
-  }
- 
+  };
+
+  const funcAuthorization = async () => {
+    if (values.login
+      &&!values.loginError
+      &&values.password
+      &&!values.passwordError) {
+      await axios.post('http://localhost:8000/userEnter', {
+        login: values.login,
+        password: values.password
+      }).then(res => history.push('/appoint'))
+        .catch(err => setValues({ ...values, loginNotFound: true}))
+    } if (values.login && !values.password) {
+      alert('введите пароль');
+    } if (!values.login && values.password) {
+      alert('введите логин');
+    };
+  };
+  
   return(
-    <> <AppBar position="static" className='app'>
-    <Toolbar className="myToolBar">
-      <IconButton edge="start" className='menuButton' aria-label="menu">
-        <img src={logo} alt='mainLo'/>
-      </IconButton>
-      <Typography className='title'>
-        Войти в систему
-    </Typography>
-    </Toolbar>
-  </AppBar>
-  <Container className='container'>
-    <img src={bigLogo} width='30%' alt='bigLogo' />
-    <div className='registrationDiv'>
-      <h1 className='containerh1'> Войти в систему</h1>
-      <div className="labelInput">
-         <label>Login:</label>
-         <OutlinedInput
-          className="input"
-          placeholder="Login"
-          id="login"
-          type={values.showPassword ? 'text' : 'password'}
-          value={values.password}
-          onChange={handleChange('password')}
-          />
-      </div>
-      <div className="labelInput">
-      <label>Password:</label>
-      <OutlinedInput 
-        className="input"
-        placeholder="Password"
-        id="password"
-        type={values.showPassword ? 'text' : 'password'}
-        value={values.password}
-        onChange={handleChange('password')}
-        endAdornment={
-          <InputAdornment position="end" >
-            <IconButton
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {values.showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-      </div>
-      <div className="registrationButtons">
-        <Button variant="outlined">Войти</Button>
-        <Button onClick ={()=>goToRegistr()}>Зарегистрироваться</Button>
-      </div>
-    </div>
-  </Container></>
+    <> 
+      <AppBar position="static" className='app'>
+        <Toolbar className="myToolBar">
+          <IconButton edge="start" className='menuButton' aria-label="menu">
+            <img src={logo} alt='mainLo'/>
+          </IconButton>
+          <Typography className='title'>
+            Войти в систему
+        </Typography>
+        </Toolbar>
+      </AppBar>
+      <Container className='container'>
+        <img src={bigLogo} alt='bigLogo' />
+        <div className='registrationDivAuthor'>
+          <h1 className='containerh1'> Войти в систему</h1>
+          <div className="labelInput">
+            <label>Login:</label>
+            <OutlinedInput
+              className="input"
+              placeholder="Login"
+              id="login"
+              value={values.login}
+              onChange={(e) => handleChangeLogin(e)}
+              onBlur={() => handleLoginBlur()}
+              onFocus={() => handleLoginFocus()}
+            />
+            {
+              values.loginNotFound && 
+              <Alert severity="error" className='myStyleError'> 
+                Логин или пароль введены неверно
+              </Alert>
+            }
+            <Alert
+              severity="error"
+              className='myStyleError'
+              style = {values.loginError ? {visibility: 'visible'} : {visibility: 'hidden'}}
+            >   
+              Пароль должен состоять минимум из 6 символов латинского алфавита и содержать минимум 1 цифру
+            </Alert>
+          </div>
+          <div className="labelInput">
+            <label>Password:</label>
+            <OutlinedInput 
+              className="input"
+              placeholder="Password"
+              id="password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={(e) => handlePassword(e)}
+              onBlur={() => handlePasswordBlur()}
+              onFocus={() => handlePasswordFocus()}
+              endAdornment={
+                <InputAdornment position="end" >
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <Alert
+              severity="error"
+              className='myStyleError'
+              style = {values.passwordError ? {visibility: 'visible'} : {visibility: 'hidden'}}
+            >   
+              Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+            </Alert>
+          </div>
+          <div className="registrationButtons">
+            <Button variant="outlined" onClick ={() => funcAuthorization()}>Войти</Button>
+            <Button onClick ={() => goToRegistr()}>Зарегистрироваться</Button>
+          </div>
+        </div>
+      </Container>
+    </>
   )
 };
 
