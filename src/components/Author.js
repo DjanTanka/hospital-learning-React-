@@ -98,7 +98,7 @@ const Author = () => {
   
   return(
     <div> 
-      <AppBar position="static" className='app'>
+      <AppBar position="static" className='my-app'>
         <Toolbar className="myToolBar">
           <IconButton edge="start" className='menuButton' aria-label="menu">
             <img src={logo} alt='mainLo'/>
@@ -108,7 +108,7 @@ const Author = () => {
         </Typography>
         </Toolbar>
       </AppBar>
-      <Container className='container'>
+      <Container className='my-wrapper'>
         <img src={bigLogo} alt='bigLogo' />
         <div className='registrationDivAuthor'>
           <h1 className='containerh1'> Войти в систему</h1>
