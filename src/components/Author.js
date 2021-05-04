@@ -87,7 +87,7 @@ const Author = () => {
       await axios.post('http://localhost:8000/userEnter', {
         login: login,
         password: password
-      }).then(res => history.push('/appoint'))
+      }).then(res => {localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint')})
         .catch(err => setValues({ ...values, loginNotFound: true}))
     } if (login && !password) {
       alert('введите пароль');

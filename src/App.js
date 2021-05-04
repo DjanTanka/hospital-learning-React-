@@ -4,9 +4,8 @@ import Registr from './components/Registr.js';
 import Appoint from './components/Appoint.js';
 
 function App() { 
-  const loca = false;
+  const loca = JSON.parse(localStorage.getItem('userEntered'));
   return (
-   
     <div>
      <Switch>
        <Route path="/author" component={Author}></Route>

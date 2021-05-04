@@ -106,7 +106,7 @@ const Registr = () => {
         await axios.post('http://localhost:8000/addNewUser', {
           login: login,
           password: password
-        }).then(res => history.push('/appoint'))
+        }).then(res => {localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint')})
           .catch(err => setValues({ ...values, loginExists: true}))
     } if (login && !password) {
       alert('введите пароль');
@@ -120,7 +120,7 @@ const Registr = () => {
       <AppBar position="static" className='my-app'>
         <Toolbar variant="dense">
           <IconButton edge="start" >
-            <img src = {logo} />
+            <img src={logo} />
           </IconButton>
           <Typography variant="h6" color="inherit">
             Зарегистрироваться в системе
