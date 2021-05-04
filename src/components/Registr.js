@@ -71,10 +71,10 @@ const Registr = () => {
 
   const handleRepeatPasswordBlur = () => {
     (values.password !== values.repeatPassword
-    && values.password 
-    && values.repeatPassword) 
-    ? setValues({ ...values, wrongRepeatPassword: true })
-    : setValues({ ...values, wrongRepeatPassword: false })
+      && values.password
+      && values.repeatPassword)
+      ? setValues({ ...values, wrongRepeatPassword: true })
+      : setValues({ ...values, wrongRepeatPassword: false })
   };
 
   const handleRepeatPasswordfocus = () => {
@@ -86,11 +86,11 @@ const Registr = () => {
   };
 
   const goToAuthor = () => {
-      history.push('/author');
+    history.push('/author');
   };
 
   const funcRegistration = async (values) => {
-    const {login, 
+    const { login,
       loginError,
       loginExists,
       password,
@@ -98,16 +98,16 @@ const Registr = () => {
       wrongrRepeatPassword
     } = values;
     if (login
-        && !loginError
-        && !loginExists
-        && password 
-        && !passwordError
-        && !wrongrRepeatPassword) {
-        await axios.post('http://localhost:8000/addNewUser', {
-          login: login,
-          password: password
-        }).then(res => {localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint')})
-          .catch(err => setValues({ ...values, loginExists: true}))
+      && !loginError
+      && !loginExists
+      && password
+      && !passwordError
+      && !wrongrRepeatPassword) {
+      await axios.post('http://localhost:8000/addNewUser', {
+        login: login,
+        password: password
+      }).then(res => { localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint') })
+        .catch(err => setValues({ ...values, loginExists: true }))
     } if (login && !password) {
       alert('введите пароль');
     } if (!login && password) {
@@ -128,37 +128,10 @@ const Registr = () => {
         </Toolbar>
       </AppBar>
       <Container className='my-wrapper'>
-      <img src={bigLogo} className='my-big-logo' alt='bigLogo' />
-      <div className='div-registration'>
-        <h1 className='containerh1'> Регистрация</h1>
-        {
-          values.loginExists && 
-          <Alert severity="error" className='my-style-error'> 
-            Пользователь с таким логином уже существует
-          </Alert>
-        }
-        <Alert
-          severity="error"
-          className='my-style-error'
-          style = {{display: !values.loginError ? 'none' :'flex'}}
-        >   
-          Логин может содержать символы латинского алфавита и цифры. Минимальная длина 6 
-        </Alert>
-        <Alert
-            severity="error"
-            className='my-style-error'
-            style = {{ display: !values.passwordError ? 'none' : 'flex'}}
-          >   
-            Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
-          </Alert>
-          <Alert
-            severity="error"
-            className='my-style-error'
-            style = {{display: !values.wrongRepeatPassword ? 'none' : 'flex'}}
-          >   
-            Пароли должны совпадать!            
-          </Alert>
-        <div className='labelInput'>
+        <img src={bigLogo} className='my-big-logo' alt='bigLogo' />
+        <div className='div-registration'>
+          <h1 className='container-h1'> Регистрация</h1>
+          <div className='label-input'>
             <label>Login:</label>
             <OutlinedInput
               className='input'
@@ -170,64 +143,88 @@ const Registr = () => {
               onBlur={() => handleLoginBlur()}
               onFocus={() => handleLoginFocus()}
             />
-            
-        </div>
-        <div className='labelInput'>
-        <label>Password:</label>
-        <OutlinedInput 
-          className='input'
-          placeholder='Password'
-          id='password'
-          type={values.showPassword ? 'text' : 'password'}
-          value={values.password}
-          onChange={(e) => handlePassword(e)}
-          onBlur={() => handlePasswordBlur()}
-          onFocus={() => handlePasswordFocus()}
-          endAdornment={
-            <InputAdornment position='end'>
-              <IconButton
-                onClick={handleClickShowPassword}
-                edge='end'
-              >
-                {values.showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-          
-        </div>
-        <div className='labelInput'>
-          <label>Repeat password:</label>
-          <OutlinedInput
-            className='input'
-            placeholder='Repeat password'
-            id='repeatPassword'
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.repeatPassword}
-            onChange={(e) => handleRepeatPassword(e)}
-            onBlur={() => handleRepeatPasswordBlur()}
-            onFocus={() => handleRepeatPasswordfocus()}
-            endAdornment={
-              <InputAdornment position='end'>
-                <IconButton
-                  onClick={() => handleClickShowPassword}
-                  edge='end'
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
+            {
+              values.loginExists &&
+              <Alert severity="error" className='my-style-error'>
+                Пользователь с таким логином уже существует
+              </Alert>
             }
-          />
-          
-        </div>
-        <div className='registrationButtons'>
-          <Button variant='outlined' onClick ={() => funcRegistration(values)}>
-            Зарегистрироваться
-          </Button>
-          <Button onClick ={()=>goToAuthor()}>
-            Авторизироваться
-          </Button>
-        </div>
+            <Alert
+              severity="error"
+              className='my-style-error'
+              style={{ display: !values.loginError ? 'none' : 'flex' }}
+            >
+              Логин может содержать символы латинского алфавита и цифры. Минимальная длина 6
+            </Alert>
+          </div>
+          <div className='label-input'>
+            <label>Password:</label>
+            <OutlinedInput
+              className='input'
+              placeholder='Password'
+              id='password'
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={(e) => handlePassword(e)}
+              onBlur={() => handlePasswordBlur()}
+              onFocus={() => handlePasswordFocus()}
+              endAdornment={
+                <InputAdornment position='end'>
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    edge='end'
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <Alert
+              severity="error"
+              className='my-style-error'
+              style={{ display: !values.passwordError ? 'none' : 'flex' }}
+            >
+              Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+            </Alert>
+          </div>
+          <div className='label-input'>
+            <label>Repeat password:</label>
+            <OutlinedInput
+              className='input'
+              placeholder='Repeat password'
+              id='repeatPassword'
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.repeatPassword}
+              onChange={(e) => handleRepeatPassword(e)}
+              onBlur={() => handleRepeatPasswordBlur()}
+              onFocus={() => handleRepeatPasswordfocus()}
+              endAdornment={
+                <InputAdornment position='end'>
+                  <IconButton
+                    onClick={() => handleClickShowPassword}
+                    edge='end'
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <Alert
+              severity="error"
+              className='my-style-error'
+              style={{ display: !values.wrongRepeatPassword ? 'none' : 'flex' }}
+            >
+              Пароли должны совпадать!
+            </Alert>
+          </div>
+          <div className='registration-buttons'>
+            <Button variant='outlined' onClick={() => funcRegistration(values)}>
+              Зарегистрироваться
+            </Button>
+            <Button onClick={() => goToAuthor()}>
+              Авторизироваться
+           </Button>
+          </div>
         </div>
       </Container>
     </div>

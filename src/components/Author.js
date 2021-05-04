@@ -100,7 +100,7 @@ const Author = () => {
     <div> 
       <AppBar position="static" className='my-app'>
         <Toolbar className="myToolBar">
-          <IconButton edge="start" className='menuButton' aria-label="menu">
+          <IconButton edge="start" className='menu-button' aria-label="menu">
             <img src={logo} alt='mainLo'/>
           </IconButton>
           <Typography className='title'>
@@ -110,9 +110,9 @@ const Author = () => {
       </AppBar>
       <Container className='my-wrapper'>
         <img src={bigLogo} alt='bigLogo' />
-        <div className='registrationDivAuthor'>
-          <h1 className='containerh1'> Войти в систему</h1>
-          <div className="labelInput">
+        <div className='div-registration-author'>
+          <h1 className='container-h1'> Войти в систему</h1>
+          <div className="label-input">
             <label>Login:</label>
             <OutlinedInput
               className="input"
@@ -125,19 +125,19 @@ const Author = () => {
             />
             {
               values.loginNotFound && 
-              <Alert severity="error" className='myStyleError'> 
+              <Alert severity="error" className='my-style-error'> 
                 Логин или пароль введены неверно
               </Alert>
             }
             <Alert
               severity="error"
-              className='myStyleError'
+              className='my-style-error'
               style={{display: values.loginError ? 'none': 'flex' }}
             >   
               Пароль должен состоять минимум из 6 символов латинского алфавита и содержать минимум 1 цифру
             </Alert>
           </div>
-          <div className="labelInput">
+          <div className="label-input">
             <label>Password:</label>
             <OutlinedInput 
               className="input"
@@ -161,13 +161,13 @@ const Author = () => {
             />
             <Alert
               severity="error"
-              className='myStyleError'
+              className='my-style-error'
               style = {{display: values.passwordError ? 'none' : 'flex', zIndex: "10"}}
             >   
               Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
             </Alert>
           </div>
-          <div className="registrationButtons">
+          <div className="registration-buttons">
             <Button 
               variant="outlined" 
               onClick ={() => funcAuthorization(values)}
