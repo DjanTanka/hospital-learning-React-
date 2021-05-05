@@ -20,16 +20,27 @@ import './Registr.scss';
 
 const Registr = () => {
   let history = useHistory();
+
   const [values, setValues] = useState({
     login: '',
-    loginError: false,
+    loginError: true,
     loginExists: false,
     password: '',
-    passwordError: false,
+    passwordError: true,
     repeatPassword: '',
     wrongRepeatPassword: false,
     showPassword: false,
   });
+
+  const { login,
+    loginError,
+    loginExists,
+    password,
+    repeatPassword,
+    passwordError,
+    wrongRepeatPassword,
+    showPassword
+  } = values;
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -40,8 +51,8 @@ const Registr = () => {
   };
 
   const handleLoginBlur = () => {
-    if (values.login) {
-      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(values.login));
+    if (login) {
+      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(login));
       setValues({ ...values, loginError: !correctValue });
     };
   };
@@ -55,8 +66,8 @@ const Registr = () => {
   };
 
   const handlePasswordBlur = () => {
-    if (values.password) {
-      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(values.password));
+    if (password) {
+      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password));
       setValues({ ...values, passwordError: !correctValue1 });
     };
   };
@@ -70,11 +81,11 @@ const Registr = () => {
   };
 
   const handleRepeatPasswordBlur = () => {
-    (values.password !== values.repeatPassword
-      && values.password
-      && values.repeatPassword)
-      ? setValues({ ...values, wrongRepeatPassword: true })
-      : setValues({ ...values, wrongRepeatPassword: false })
+    (password !== repeatPassword
+      && password
+      && repeatPassword)
+        ? setValues({ ...values, wrongRepeatPassword: true })
+        : setValues({ ...values, wrongRepeatPassword: false })
   };
 
   const handleRepeatPasswordfocus = () => {
@@ -82,7 +93,7 @@ const Registr = () => {
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setValues({ ...values, showPassword: !showPassword });
   };
 
   const goToAuthor = () => {
@@ -90,29 +101,28 @@ const Registr = () => {
   };
 
   const funcRegistration = async (values) => {
-    const { login,
-      loginError,
-      loginExists,
-      password,
-      passwordError,
-      wrongrRepeatPassword
-    } = values;
-    if (login
-      && !loginError
-      && !loginExists
-      && password
-      && !passwordError
-      && !wrongrRepeatPassword) {
+    if (!loginError
+        && !loginExists
+        && repeatPassword
+        && !passwordError
+        && !wrongRepeatPassword) {
+          console.log('отправляю')
       await axios.post('http://localhost:8000/addNewUser', {
         login: login,
         password: password
-      }).then(res => { localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint') })
+      }).then(res => { 
+          localStorage.setItem('userEntered', JSON.stringify(login));
+          history.push('/appoint') 
+        })
         .catch(err => setValues({ ...values, loginExists: true }))
     } if (login && !password) {
       alert('введите пароль');
     } if (!login && password) {
       alert('введите логин');
-    };
+    } if (!repeatPassword && password) {
+      alert('необходимо повторить пароль')
+    }
+
   };
 
   return (
@@ -138,21 +148,19 @@ const Registr = () => {
               placeholder='Login'
               id='login'
               type='text'
-              value={values.login}
+              value={login}
               onChange={(e) => handleChangLogin(e)}
               onBlur={() => handleLoginBlur()}
               onFocus={() => handleLoginFocus()}
             />
-            {
-              values.loginExists &&
+            {loginExists &&
               <Alert severity="error" className='my-style-error'>
                 Пользователь с таким логином уже существует
               </Alert>
             }
             <Alert
               severity="error"
-              className='my-style-error'
-              style={{ display: !values.loginError ? 'none' : 'flex' }}
+              className={`my-style-error ${loginError && login ? '' : 'my-style-error-none'}`}
             >
               Логин может содержать символы латинского алфавита и цифры. Минимальная длина 6
             </Alert>
@@ -163,8 +171,8 @@ const Registr = () => {
               className='input'
               placeholder='Password'
               id='password'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
+              type={showPassword ? 'text' : 'password'}
+              value={password}
               onChange={(e) => handlePassword(e)}
               onBlur={() => handlePasswordBlur()}
               onFocus={() => handlePasswordFocus()}
@@ -174,15 +182,14 @@ const Registr = () => {
                     onClick={handleClickShowPassword}
                     edge='end'
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
             />
             <Alert
               severity="error"
-              className='my-style-error'
-              style={{ display: !values.passwordError ? 'none' : 'flex' }}
+              className={`my-style-error ${password && passwordError ? '' : 'my-style-error-none'}`}
             >
               Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
             </Alert>
@@ -193,8 +200,8 @@ const Registr = () => {
               className='input'
               placeholder='Repeat password'
               id='repeatPassword'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.repeatPassword}
+              type={showPassword ? 'text' : 'password'}
+              value={repeatPassword}
               onChange={(e) => handleRepeatPassword(e)}
               onBlur={() => handleRepeatPasswordBlur()}
               onFocus={() => handleRepeatPasswordfocus()}
@@ -204,15 +211,14 @@ const Registr = () => {
                     onClick={() => handleClickShowPassword}
                     edge='end'
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
             />
             <Alert
               severity="error"
-              className='my-style-error'
-              style={{ display: !values.wrongRepeatPassword ? 'none' : 'flex' }}
+              className={`my-style-error ${wrongRepeatPassword ? '' : 'my-style-error-none'}`}
             >
               Пароли должны совпадать!
             </Alert>
@@ -228,7 +234,7 @@ const Registr = () => {
         </div>
       </Container>
     </div>
-  )
+  );
 };
 
 export default Registr;

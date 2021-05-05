@@ -1,7 +1,7 @@
 
 .div-registration-author {
-  width: 70%;
-  max-width: 500px;
+  width: 30%;
+  min-width: 400px;
   min-width: 350px;
   height: 50%;
   min-height: 500px;
@@ -27,12 +27,11 @@
       text-align: left;
       margin: 5px;
       width: 50%;
-    };
+    }
 
     .my-style-error{
       background-color: #C5E9FF;;
       width: 100%;
-      max-width: 400px;
       font-weight: 300;
       color: black;
       font-size: 12px;
@@ -40,8 +39,12 @@
       position: absolute;
       z-index: 99;
       top: 69px;
-    };
-  };
+    }
+
+    .my-style-error-none{
+      display: none;
+    }
+  }
 
   .container-h1 {
     font-family: Roboto;
@@ -49,15 +52,14 @@
     font-weight: 300;
     font-size: 36px;
     line-height: 42px;
-  };
+  }
 
   .MuiInputBase-root.input {
     width: 100%;
-    max-width: 400px;
     height: 6%;
     min-height: 40px;
     max-height: 50px;
-  };
+  }
 
   .registration-buttons {
     text-align: left;
@@ -77,30 +79,28 @@
       text-transform: none;
       font-size: 18px;
       margin-bottom: 20px;
-    };
-  };
-};
+    }
+  }
+}
 
 @media (min-width: 1280px) {
   .container.MuiContainer-maxWidthLg {
     max-width: none;
-  };
-};
+  }
+}
 
 @media screen and (max-width: 575px) {
-
   .div-registration-author {
     width: 80%;
     min-width: 200px;
 
     .container-h1 {
       font-size: 1.6em;
-    };
-  };
-};
+    }
+  }
+}
 
 @media screen and (max-width: 321px) {
-      
   .div-registration-author {
     width: 80%;
     min-width: 280px;
@@ -110,26 +110,26 @@
     .label-input {
       label {
         width:70%;
-      };
+      }
 
       .MuiInputBase-root.input {
-      min-height: 30px;
-      };
-    };
+       min-height: 30px;
+      }
+    }
 
     .registration-buttons {
       button {
         margin-right: 29px;
-      };
-    };
-  };
-};
+      }
+    }
+  }
+}
 
 @media screen and (max-width: 280px) {
   .MuiPaper-root.my-app { 
     height: 8vh;
     min-height: 80px;
-  };
+  }
 
   .MuiContainer-root.my-wrapper {
     height: calc(92vh - (80px - 8vh));  
@@ -142,8 +142,8 @@
           height: 30px;
           width: 77%;
           margin-right: 29px;
-        };
-      };
-    };
-  };
-};
+        }
+      }
+    }
+  }
+}

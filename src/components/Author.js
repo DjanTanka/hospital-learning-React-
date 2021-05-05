@@ -27,10 +27,16 @@ const Author = () => {
     loginNotFound: false,
     password: '',
     passwordError: true,
-    repeatPassword: '',
-    rightRepeatPassword: false,
     showPassword: false,
   });
+
+  const { login,
+    loginError,
+    loginNotFound,
+    password,
+    passwordError,
+    showPassword
+  } = values;
   
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -41,14 +47,14 @@ const Author = () => {
   };
 
   const handleLoginBlur = () => {
-    if (values.login) {
-      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(values.login));
-      setValues({ ...values, loginError: correctValue });
+    if (login) {
+      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(login));
+      setValues({ ...values, loginError: !correctValue });
     };
   };
 
   const handleLoginFocus = () => {
-    setValues({ ...values, loginError: true, loginNotFound: false });
+    setValues({ ...values, loginError: false, loginNotFound: false });
   };
 
   const handlePassword = (e) => {
@@ -56,18 +62,18 @@ const Author = () => {
   };
 
   const handlePasswordBlur = () => {
-    if (values.password) {
-      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(values.password));
-      setValues({ ...values, passwordError: correctValue1 });
+    if (password) {
+      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password));
+      setValues({ ...values, passwordError: !correctValue1 });
     };
   };
 
   const handlePasswordFocus = () => {
-    setValues({ ...values, passwordError: true });
+    setValues({ ...values, passwordError: false });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setValues({ ...values, showPassword: !showPassword });
   };
 
   const goToRegistr = () => {
@@ -75,19 +81,15 @@ const Author = () => {
   };
 
   const funcAuthorization = async (values) => {
-    const {login, 
-      loginError,
-      password,
-      passwordError,
-    } = values;
-    if (login
-      &&loginError
-      &&password
-      &&passwordError) {
+    if (!loginError
+      &&!passwordError) {
       await axios.post('http://localhost:8000/userEnter', {
         login: login,
         password: password
-      }).then(res => {localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint')})
+      }).then(res => {
+          localStorage.setItem('userEntered', JSON.stringify(login)); 
+          history.push('/appoint')
+        })
         .catch(err => setValues({ ...values, loginNotFound: true}))
     } if (login && !password) {
       alert('введите пароль');
@@ -118,21 +120,19 @@ const Author = () => {
               className="input"
               placeholder="Login"
               id="login"
-              value={values.login}
+              value={login}
               onChange={(e) => handleChangeLogin(e)}
               onBlur={() => handleLoginBlur()}
               onFocus={() => handleLoginFocus()}
             />
-            {
-              values.loginNotFound && 
+            {loginNotFound && 
               <Alert severity="error" className='my-style-error'> 
                 Логин или пароль введены неверно
               </Alert>
             }
             <Alert
               severity="error"
-              className='my-style-error'
-              style={{display: values.loginError ? 'none': 'flex' }}
+              className={`my-style-error ${loginError && login ? '' : 'my-style-error-none'}`}
             >   
               Пароль должен состоять минимум из 6 символов латинского алфавита и содержать минимум 1 цифру
             </Alert>
@@ -143,8 +143,8 @@ const Author = () => {
               className="input"
               placeholder="Password"
               id="password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
+              type={showPassword ? 'text' : 'password'}
+              value={password}
               onChange={(e) => handlePassword(e)}
               onBlur={() => handlePasswordBlur()}
               onFocus={() => handlePasswordFocus()}
@@ -154,15 +154,14 @@ const Author = () => {
                     onClick={() => handleClickShowPassword()}
                     edge="end"
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
             />
             <Alert
               severity="error"
-              className='my-style-error'
-              style = {{display: values.passwordError ? 'none' : 'flex', zIndex: "10"}}
+              className={`my-style-error ${password && passwordError ? '' : 'my-style-error-none'}`}
             >   
               Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
             </Alert>
@@ -179,7 +178,7 @@ const Author = () => {
         </div>
       </Container>
     </div>
-  )
+  );
 };
 
 export default Author;
