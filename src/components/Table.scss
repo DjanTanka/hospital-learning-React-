@@ -1,7 +1,7 @@
-.MuiContainer-root.my-wrapper-inputs {
+.MuiContainer-root.my-wrapper-table {
   background-color: #C5E9FF; 
   width: 100vw;
-  
+  height: 69vh;
 
   min-height: 150px;
   box-shadow: inset 0px 15px 7px -5px rgba(128,128,128,0.5);
@@ -23,13 +23,7 @@
       border-radius: 4px;
       padding: 0px;
       height: 100%;
-
     }
-    .MuiTextField-root.input .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: red !important;
-      outline: none !important;
-    }
-
   }
 
   button {
@@ -45,5 +39,3 @@
     height: 10vh;
   }
 }
-
-  
