@@ -28,6 +28,8 @@ const Author = () => {
     password: '',
     passwordError: true,
     showPassword: false,
+    noLogin: false,
+    noPassword: false,
   });
 
   const { login,
@@ -35,7 +37,9 @@ const Author = () => {
     loginNotFound,
     password,
     passwordError,
-    showPassword
+    showPassword,
+    noLogin,
+    noPassword
   } = values;
   
   function Alert(props) {
@@ -54,7 +58,7 @@ const Author = () => {
   };
 
   const handleLoginFocus = () => {
-    setValues({ ...values, loginError: false, loginNotFound: false });
+    setValues({ ...values, loginError: false, loginNotFound: false, noLogin: false });
   };
 
   const handlePassword = (e) => {
@@ -69,7 +73,7 @@ const Author = () => {
   };
 
   const handlePasswordFocus = () => {
-    setValues({ ...values, passwordError: false });
+    setValues({ ...values, passwordError: false, noPassword: false });
   };
 
   const handleClickShowPassword = () => {
@@ -81,20 +85,19 @@ const Author = () => {
   };
 
   const funcAuthorization = async (values) => {
-    if (!loginError
-      &&!passwordError) {
+    if (!loginError && !passwordError) {
       await axios.post('http://localhost:8000/userEnter', {
         login: login,
         password: password
       }).then(res => {
           localStorage.setItem('userEntered', JSON.stringify(login)); 
-          history.push('/appoint')
+          history.push('/appoint');
         })
-        .catch(err => setValues({ ...values, loginNotFound: true}))
+        .catch(err => setValues({ ...values, loginNotFound: true}));
     } if (login && !password) {
-      alert('введите пароль');
+      setValues({ ...values, noPassword: true });//alert('введите пароль');
     } if (!login && password) {
-      alert('введите логин');
+      setValues({ ...values, noLogin: true });//alert('введите логин');
     };
   };
   
@@ -125,6 +128,12 @@ const Author = () => {
               onBlur={() => handleLoginBlur()}
               onFocus={() => handleLoginFocus()}
             />
+             <Alert
+                severity="error"
+                className={`my-style-error ${!noLogin ? 'my-style-error-none' : ''}`}
+              >
+                Введите логин
+            </Alert>
             {loginNotFound && 
               <Alert severity="error" className='my-style-error'> 
                 Логин или пароль введены неверно
@@ -132,7 +141,7 @@ const Author = () => {
             }
             <Alert
               severity="error"
-              className={`my-style-error ${loginError && login ? '' : 'my-style-error-none'}`}
+              className={`my-style-error ${!loginError || !login ? 'my-style-error-none' : ''}`}
             >   
               Пароль должен состоять минимум из 6 символов латинского алфавита и содержать минимум 1 цифру
             </Alert>
@@ -161,9 +170,15 @@ const Author = () => {
             />
             <Alert
               severity="error"
-              className={`my-style-error ${password && passwordError ? '' : 'my-style-error-none'}`}
+              className={`my-style-error ${!password || !passwordError ? 'my-style-error-none' : ''}`}
             >   
-              Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+                Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+            </Alert>
+            <Alert
+              severity="error"
+              className={`my-style-error ${!noPassword ? 'my-style-error-none' : ''}`}
+              >
+                Введите пароль
             </Alert>
           </div>
           <div className="registration-buttons">
@@ -171,14 +186,14 @@ const Author = () => {
               variant="outlined" 
               onClick ={() => funcAuthorization(values)}
             >
-              Войти
+                Войти
             </Button>
             <Button onClick ={() => goToRegistr()}>Зарегистрироваться</Button>
           </div>
         </div>
       </Container>
     </div>
-  );
+  )
 };
 
 export default Author;

@@ -30,6 +30,9 @@ const Registr = () => {
     repeatPassword: '',
     wrongRepeatPassword: false,
     showPassword: false,
+    noLogin: false,
+    noPassword: false,
+    noReapeatPassword: false
   });
 
   const { login,
@@ -39,7 +42,10 @@ const Registr = () => {
     repeatPassword,
     passwordError,
     wrongRepeatPassword,
-    showPassword
+    showPassword,
+    noLogin,
+    noPassword,
+    noRepeatPassword
   } = values;
 
   function Alert(props) {
@@ -53,12 +59,12 @@ const Registr = () => {
   const handleLoginBlur = () => {
     if (login) {
       const correctValue = (/^[A-Za-z0-9]{6,}$/.test(login));
-      setValues({ ...values, loginError: !correctValue });
+      setValues({ ...values, loginError: !correctValue, noLogin: !correctValue });
     };
   };
 
   const handleLoginFocus = () => {
-    setValues({ ...values, loginError: false, loginExists: false });
+    setValues({ ...values, loginError: false, loginExists: false, noLogin: false});
   };
 
   const handlePassword = (e) => {
@@ -68,12 +74,12 @@ const Registr = () => {
   const handlePasswordBlur = () => {
     if (password) {
       const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password));
-      setValues({ ...values, passwordError: !correctValue1 });
+      setValues({ ...values, passwordError: !correctValue1, noPassword: !correctValue1 });
     };
   };
 
   const handlePasswordFocus = () => {
-    setValues({ ...values, passwordError: false });
+    setValues({ ...values, passwordError: false, noPassword: false });
   };
 
   const handleRepeatPassword = (e) => {
@@ -89,7 +95,7 @@ const Registr = () => {
   };
 
   const handleRepeatPasswordfocus = () => {
-    setValues({ ...values, wrongRepeatPassword: false });
+    setValues({ ...values, wrongRepeatPassword: false, noRepeatPassword: false });
   };
 
   const handleClickShowPassword = () => {
@@ -106,23 +112,21 @@ const Registr = () => {
         && repeatPassword
         && !passwordError
         && !wrongRepeatPassword) {
-          console.log('отправляю')
       await axios.post('http://localhost:8000/addNewUser', {
         login: login,
         password: password
       }).then(res => { 
           localStorage.setItem('userEntered', JSON.stringify(login));
-          history.push('/appoint') 
+          history.push('/appoint');
         })
-        .catch(err => setValues({ ...values, loginExists: true }))
+        .catch(err => setValues({ ...values, loginExists: true }));
     } if (login && !password) {
-      alert('введите пароль');
+      setValues({ ...values, noPassword: true });
     } if (!login && password) {
-      alert('введите логин');
+      setValues({ ...values, noLogin: true });
     } if (!repeatPassword && password) {
-      alert('необходимо повторить пароль')
+      setValues({ ...values, noRepeatPassword: true });
     }
-
   };
 
   return (
@@ -160,9 +164,15 @@ const Registr = () => {
             }
             <Alert
               severity="error"
-              className={`my-style-error ${loginError && login ? '' : 'my-style-error-none'}`}
+              className={`my-style-error ${!loginError || !login ? 'my-style-error-none' : ''}`}
             >
               Логин может содержать символы латинского алфавита и цифры. Минимальная длина 6
+            </Alert>
+            <Alert
+                severity="error"
+                className={`my-style-error ${!noLogin ? 'my-style-error-none' : ''}`}
+              >
+                Введите логин
             </Alert>
           </div>
           <div className='label-input'>
@@ -189,9 +199,15 @@ const Registr = () => {
             />
             <Alert
               severity="error"
-              className={`my-style-error ${password && passwordError ? '' : 'my-style-error-none'}`}
+              className={`my-style-error ${!password || !passwordError ? 'my-style-error-none' : ''}`}
             >
               Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+            </Alert>
+            <Alert
+                severity="error"
+                className={`my-style-error ${!noPassword ? 'my-style-error-none' : ''}`}
+              >
+                Введите пароль
             </Alert>
           </div>
           <div className='label-input'>
@@ -218,9 +234,15 @@ const Registr = () => {
             />
             <Alert
               severity="error"
-              className={`my-style-error ${wrongRepeatPassword ? '' : 'my-style-error-none'}`}
+              className={`my-style-error ${!wrongRepeatPassword ? 'my-style-error-none' : ''}`}
             >
               Пароли должны совпадать!
+            </Alert>
+            <Alert
+                severity="error"
+                className={`my-style-error ${!noRepeatPassword ? 'my-style-error-none' : ''}`}
+              >
+                Необходимо повторить пароль
             </Alert>
           </div>
           <div className='registration-buttons'>
@@ -234,7 +256,7 @@ const Registr = () => {
         </div>
       </Container>
     </div>
-  );
+  )
 };
 
 export default Registr;
