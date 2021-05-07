@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   AppBar,
   Toolbar,
@@ -11,6 +12,19 @@ import logo from '../img/logo.png';
 
 const Appoint = () => {
   const [appoints, setAppoints] = useState([]);
+
+  const getAppoints = async () => {
+    await axios.get('http://localhost:8000/getAllAppoints')
+      .then(res => {
+        setAppoints(res.data.data);
+      })
+      .catch(err => console.log('что-то пошло не так...'));
+  }
+
+  useEffect(() => {
+    if (!appoints.length) getAppoints();
+  })
+
   return(
     <div>
        <AppBar position="static" className='my-app'>
@@ -23,10 +37,8 @@ const Appoint = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Inputs setAppoints={setAppoints}/>
-      {/* <Inputs/> */}
-      <Table appoints={appoints}/>
-      
+      <Inputs setAppoints={getAppoints}/>
+      <Table appoints={appoints} />
     </div>
   )
 };

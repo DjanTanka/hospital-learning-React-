@@ -70,11 +70,9 @@ const Inputs = (props) => {
       doctor: doctor,
       date: date,
       complaint: complaint
-      }).then(res => { props.setAppoints(res.data) })
+      }).then(res => { props.setAppoints()})
         .catch(err => console.log('что-то пошло не так'));
-        console.log(props)
       setValues({...values, fio: '', doctor: '', date: firstDate, complaint: '' });
-    
   }
 
   return(

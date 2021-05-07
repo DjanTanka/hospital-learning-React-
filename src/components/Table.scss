@@ -33,6 +33,19 @@
   }
 }
 
+.MuiTableContainer-root.my-table {
+  width: 85%;
+  .conteiner-for-img {
+    width: 25%;
+    display: flex;
+   
+    img {
+      width: 30px;
+      padding-left: 10px;
+
+    }
+  }
+}
 
 @media screen and (max-width: 1024px) {
   .MuiContainer-root.my-wrapper-inputs  {
