@@ -37,8 +37,8 @@ const Appoint = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Inputs setAppoints={getAppoints}/>
-      <Table appoints={appoints} />
+      <Inputs getAppoints={getAppoints}/>
+      <Table appoints={appoints} getAppoints={getAppoints} />
     </div>
   )
 };

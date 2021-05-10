@@ -7,7 +7,7 @@ import './Inputs.scss';
 import axios from 'axios';
 
 const Inputs = (props) => {
-  
+   
   const allDoctors = [
     {
       value: '',
@@ -64,13 +64,13 @@ const Inputs = (props) => {
     setValues({...values, complaint: e.target.value});
   }
 
-  const handleClick = async () => {
+  const handleClickToAppoint = async () => {
     await axios.post('http://localhost:8000/addNewAppoint', {
       fio: fio,
       doctor: doctor,
       date: date,
       complaint: complaint
-      }).then(res => { props.setAppoints()})
+      }).then(res => { props.getAppoints()})
         .catch(err => console.log('что-то пошло не так'));
       setValues({...values, fio: '', doctor: '', date: firstDate, complaint: '' });
   }
@@ -127,7 +127,7 @@ const Inputs = (props) => {
         <div className="button">
             <Button 
               variant="outlined"
-              onClick={() => handleClick()} 
+              onClick={() => handleClickToAppoint()} 
             >
               Записаться
             </Button>

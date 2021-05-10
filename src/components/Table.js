@@ -43,11 +43,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Inputs = ({ appoints }) => {
+const Inputs = ({ appoints, getAppoints }) => {
   const [whatEdit, setWhatEdit] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleClickEditImg = (index) => {
+  const handleClickEditAppoint = (index) => {
     setWhatEdit(appoints[index]); 
     setOpenDialog(true);
   }
@@ -81,7 +81,7 @@ const Inputs = ({ appoints }) => {
                   <StyledTableCell align="right">
                     <div className='conteiner-for-img'>
                       <img src ={EditImg}
-                        onClick = {() => handleClickEditImg(index)}
+                        onClick = {() => handleClickEditAppoint(index)}
                       /> 
                       <img src ={DoneImg}
                         // onClick = {() => handleClickDoneImg()}
@@ -96,7 +96,7 @@ const Inputs = ({ appoints }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {openDialog && <EditWidnow whatEdit = {whatEdit} setOpenDialog={setOpenDialog} openDialog={openDialog}/>}
+        {openDialog && <EditWidnow whatEdit = {whatEdit} setWhatEdit={setWhatEdit} setOpenDialog={setOpenDialog} openDialog={openDialog} getAppoints={getAppoints}/>}
       </Container>
     </div>
   );

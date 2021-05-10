@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,27 +6,34 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 
 
 const EditWidnow = (props) => {
-  console.log(props)
-  const { whatEdit, setOpenDialog, openDialog} = props;
-  const {fio, doctor, date, complaint } = whatEdit;
-  console.log(props)
-  
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const { whatEdit, setWhatEdit, setOpenDialog, openDialog, getAppoints} = props;
+  const {_id, fio, doctor, date, complaint } = whatEdit;
 
-  const handleSubscribe = () => {
-    setOpen(false);
-  };
-
+  const [editFio, setEditFio] = useState(fio)
+ 
   const handleClose = () => {
     setOpenDialog(false);
   };
 
+  const handleFioEditChange = (e) => {
+    setEditFio(e.target.value);   
+  }
+
+  const handleSubscribe = async() => {
+    console.log('handleSubscribe')
+    await axios.put(`http://localhost:8000/editAppoint?_id=${_id}`, {
+      fio: editFio,
+      doctor: doctor,
+      date: date,
+      complaint: complaint
+      }).then(res => {getAppoints()})
+        .catch(err => console.log('что-то пошло не так'));
+    setOpenDialog(false);
+  }
   return (
     <div>
       <Dialog open={openDialog}
@@ -40,13 +47,13 @@ const EditWidnow = (props) => {
             margin="dense"
             id="name"
             type="text"
-            value={fio}
+            value={editFio}
             variant="outlined"
             fullWidth
+            onChange={(e) => handleFioEditChange(e)}
           />
           <DialogContentText>Доктор:</DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             type="text"
@@ -56,7 +63,6 @@ const EditWidnow = (props) => {
           />
           <DialogContentText>Дата:</DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             type="date"
@@ -66,7 +72,6 @@ const EditWidnow = (props) => {
           />
           <DialogContentText>Жалобы:</DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             type="text"
