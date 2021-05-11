@@ -1,31 +1,14 @@
 import React, { useState } from 'react';
 import 'date-fns';
-import { Container, 
+import {
+  Container,
   TextField,
-  Button } from '@material-ui/core';
+  Button
+} from '@material-ui/core';
 import './Inputs.scss';
 import axios from 'axios';
 
 const Inputs = (props) => {
-   
-  const allDoctors = [
-    {
-      value: '',
-      label: '',
-    },
-    {
-      value: 'Петр Петрович',
-      label: 'Петр Петрович',
-    },
-    {
-      value: 'Александр Александрович',
-      label: 'Александр Александрович',
-    },
-    {
-      value: 'Юрий Юрьевич',
-      label: 'Юрий Юрьевич',
-    },
-  ];
 
   let dateTemp2 = null;
   let firstDate = null;
@@ -36,7 +19,7 @@ const Inputs = (props) => {
 
   const [values, setValues] = useState({
     fio: '',
-    doctor:'',
+    doctor: '',
     date: firstDate,
     complaint: ''
   });
@@ -49,19 +32,19 @@ const Inputs = (props) => {
   } = values;
 
   const handleFioChange = (e) => {
-    setValues({...values, fio: e.target.value});
+    setValues({ ...values, fio: e.target.value });
   };
- 
+
   const handleDateChange = (e) => {
-    setValues({...values, date: e.target.value});
+    setValues({ ...values, date: e.target.value });
   };
-  
+
   const handleDoctorChange = (e) => {
-    setValues({...values, doctor: e.target.value});
+    setValues({ ...values, doctor: e.target.value });
   }
 
   const handleComplaintChange = (e) => {
-    setValues({...values, complaint: e.target.value});
+    setValues({ ...values, complaint: e.target.value });
   }
 
   const handleClickToAppoint = async () => {
@@ -70,26 +53,26 @@ const Inputs = (props) => {
       doctor: doctor,
       date: date,
       complaint: complaint
-      }).then(res => { props.getAppoints()})
-        .catch(err => console.log('что-то пошло не так'));
-      setValues({...values, fio: '', doctor: '', date: firstDate, complaint: '' });
+    }).then(res => { props.getAppoints() })
+      .catch(err => console.log('что-то пошло не так'));
+    setValues({ ...values, fio: '', doctor: '', date: firstDate, complaint: '' });
   }
 
-  return(
+  return (
     <div>
       <Container className='my-wrapper-inputs'>
         <div className="label-input-inputs">
-          <label>ФИО:</label> 
-          <TextField 
+          <label>ФИО:</label>
+          <TextField
             className='input'
-            type="text" 
+            type="text"
             variant="outlined"
             value={fio}
             onChange={(e) => handleFioChange(e)}
           />
         </div>
         <div className="label-input-inputs">
-          <label>Врач:</label> 
+          <label>Врач:</label>
           <TextField
             select
             value={doctor}
@@ -99,7 +82,7 @@ const Inputs = (props) => {
             }}
             variant="outlined"
           >
-            {allDoctors.map((option) => (
+            {props.allDoctors.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -107,31 +90,31 @@ const Inputs = (props) => {
           </TextField>
         </div>
         <div className="label-input-inputs">
-          <label>Дата:</label> 
-          <TextField id="outlined-search" 
-            type="date" 
+          <label>Дата:</label>
+          <TextField id="outlined-search"
+            type="date"
             variant="outlined"
             value={date}
             onChange={(e) => handleDateChange(e)}
           />
         </div>
         <div className="label-input-inputs">
-          <label>Жалобы:</label> 
-          <TextField id="outlined-search" 
-            type="text" 
+          <label>Жалобы:</label>
+          <TextField id="outlined-search"
+            type="text"
             variant="outlined"
             value={complaint}
             onChange={(e) => handleComplaintChange(e)}
           />
         </div>
         <div className="button">
-            <Button 
-              variant="outlined"
-              onClick={() => handleClickToAppoint()} 
-            >
-              Записаться
-            </Button>
-          </div>
+          <Button
+            variant="outlined"
+            onClick={() => handleClickToAppoint()}
+          >
+            Записаться
+          </Button>
+        </div>
       </Container>
     </div>
   );

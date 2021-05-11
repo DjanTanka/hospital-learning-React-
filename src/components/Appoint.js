@@ -13,6 +13,29 @@ import logo from '../img/logo.png';
 const Appoint = () => {
   const [appoints, setAppoints] = useState([]);
 
+  const allDoctors = [
+    {
+      value: '',
+      label: '',
+    },
+    {
+      value: 'Петр Петрович',
+      label: 'Петр Петрович',
+    },
+    {
+      value: 'Александр Александрович',
+      label: 'Александр Александрович',
+    },
+    {
+      value: 'Юрий Юрьевич',
+      label: 'Юрий Юрьевич',
+    },
+    {
+      value: 'Сергей Петрович',
+      label: 'Сергей Петрович',
+    },
+  ];
+
   const getAppoints = async () => {
     await axios.get('http://localhost:8000/getAllAppoints')
       .then(res => {
@@ -37,8 +60,12 @@ const Appoint = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Inputs getAppoints={getAppoints}/>
-      <Table appoints={appoints} getAppoints={getAppoints} />
+      <Inputs getAppoints={getAppoints} allDoctors={allDoctors}/>
+      <Table 
+        appoints={appoints} 
+        getAppoints={getAppoints} 
+        allDoctors={allDoctors}
+      />
     </div>
   )
 };

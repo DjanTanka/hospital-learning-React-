@@ -134,7 +134,7 @@ const Registr = () => {
       <AppBar position="static" className='my-app'>
         <Toolbar variant="dense">
           <IconButton edge="start" >
-            <img src={logo} />
+            <img src={logo} alt='logo'/>
           </IconButton>
           <Typography variant="h6" color="inherit">
             Зарегистрироваться в системе

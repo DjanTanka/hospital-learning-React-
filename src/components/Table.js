@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import 'date-fns';
-import {
-  Container,
-  TextField,
-  Button
-} from '@material-ui/core';
-import './Table.scss';
-import EditWidnow from './EditWindow'
+import { Container } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,9 +8,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import DeleteImg from '../img/delete.svg'
-import DoneImg from '../img/done.svg'
-import EditImg from '../img/edit.svg'
+import 'date-fns';
+import EditWidnow from './EditWindow';
+import DeleteWindow from './DeleteWindow';
+import './Table.scss';
+import DeleteImg from '../img/delete.svg';
+import EditImg from '../img/edit.svg';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,18 +39,25 @@ const useStyles = makeStyles({
   },
 });
 
-const Inputs = ({ appoints, getAppoints }) => {
+const Inputs = (props) => {
+
+  const { appoints, getAppoints, allDoctors } = props;
   const [whatEdit, setWhatEdit] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
+  const [openDialogDelete, setOpenDialogDelete] = useState(false);
 
   const handleClickEditAppoint = (index) => {
-    setWhatEdit(appoints[index]); 
-    setOpenDialog(true);
-  }
+    setWhatEdit(appoints[index]);
+    setOpenDialogEdit(true);
+  };
 
-  // handleClickDoneImg
-  // handleClickDeletImg
+  const handleClickDeleteAppoint = async (index) => {
+    setWhatEdit(appoints[index]);
+    setOpenDialogDelete(true)
+  };
+
   const classes = useStyles();
+
   return (
     <div >
       <Container className='my-wrapper-table'>
@@ -71,7 +74,7 @@ const Inputs = ({ appoints, getAppoints }) => {
             </TableHead>
             <TableBody>
               {appoints.map((value, index) => (
-                <StyledTableRow key = {`row-${index}`}>
+                <StyledTableRow key={`row-${index}`}>
                   <StyledTableCell component="th" scope="row">
                     {value.fio}
                   </StyledTableCell>
@@ -80,14 +83,13 @@ const Inputs = ({ appoints, getAppoints }) => {
                   <StyledTableCell align="right">{value.complaint}</StyledTableCell>
                   <StyledTableCell align="right">
                     <div className='conteiner-for-img'>
-                      <img src ={EditImg}
-                        onClick = {() => handleClickEditAppoint(index)}
-                      /> 
-                      <img src ={DoneImg}
-                        // onClick = {() => handleClickDoneImg()}
+                      <img src={EditImg}
+                        onClick={() => handleClickEditAppoint(index)}
+                        alt='editImg'
                       />
-                      <img src ={DeleteImg}
-                        // onClick = {() => handleClickDeletImg()}
+                      <img src={DeleteImg}
+                        onClick={() => handleClickDeleteAppoint(index)}
+                        alt='deleteImg'
                       />
                     </div>
                   </StyledTableCell>
@@ -96,7 +98,23 @@ const Inputs = ({ appoints, getAppoints }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {openDialog && <EditWidnow whatEdit = {whatEdit} setWhatEdit={setWhatEdit} setOpenDialog={setOpenDialog} openDialog={openDialog} getAppoints={getAppoints}/>}
+        {openDialogEdit &&
+          <EditWidnow
+            whatEdit={whatEdit}
+            setOpenDialogEdit={setOpenDialogEdit}
+            openDialogEdit={openDialogEdit}
+            getAppoints={getAppoints}
+            allDoctors={allDoctors}
+          />
+        }
+        {openDialogDelete &&
+          <DeleteWindow
+            whatEdit={whatEdit}
+            openDialogDelete={openDialogDelete}
+            setOpenDialogDelete={setOpenDialogDelete}
+            getAppoints={getAppoints}
+          />
+        }
       </Container>
     </div>
   );
