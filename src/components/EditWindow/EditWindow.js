@@ -1,42 +1,42 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent, 
+  DialogContentText,
+  DialogTitle } from '@material-ui/core';
+
 
 const EditWidnow = (props) => {
-  const { whatEdit,
+  const {
+    whatEdit,
     setOpenDialogEdit,
     openDialogEdit,
     getAppoints,
     allDoctors
   } = props;
 
-  const { _id, fio, doctor, date, complaint } = whatEdit;
+  const { 
+    _id, 
+    fio, 
+    doctor, 
+    date, 
+    complaint 
+  } = whatEdit;
 
   const [editFio, setEditFio] = useState(fio);
   const [editDoctor, setEditDoctor] = useState(doctor);
   const [editDate, setEditDate] = useState(date);
   const [editComplaint, setEditComplaint] = useState(complaint);
 
-  const handleEditFioChange = (e) => {
-    setEditFio(e.target.value);
-  };
-
-  const handleEditDoctorChange = (e) => {
-    setEditDoctor(e.target.value)
-  };
-
-  const handleEditDateChange = (e) => {
-    setEditDate(e.target.value)
-  };
-
-  const handleEditComplaintChange = (e) => {
-    setEditComplaint(e.target.value)
+  const handleChangeAppoint = (e, type) => {
+    if (type === 'editFio'){ setEditFio(e.target.value)}
+    if (type === 'editDoctor') { setEditDoctor(e.target.value)}
+    if (type === 'editDate') {setEditDate(e.target.value)}
+    if (type === 'editComplaint') {setEditComplaint(e.target.value)}
   };
 
   const handleClose = () => {
@@ -50,7 +50,7 @@ const EditWidnow = (props) => {
       date: editDate,
       complaint: editComplaint
     }).then(res => { getAppoints() })
-      .catch(err => console.log('что-то пошло не так'));
+      .catch(err => console.log(err));
     setOpenDialogEdit(false);
   };
 
@@ -70,7 +70,7 @@ const EditWidnow = (props) => {
             value={editFio}
             variant="outlined"
             fullWidth
-            onChange={(e) => handleEditFioChange(e)}
+            onChange={(e) => handleChangeAppoint(e, 'editFio')}
           />
           <DialogContentText>Доктор:</DialogContentText>
           <TextField
@@ -79,7 +79,7 @@ const EditWidnow = (props) => {
             id="editDoctor"
             type="text"
             value={editDoctor}
-            onChange={(e) => handleEditDoctorChange(e)}
+            onChange={(e) => handleChangeAppoint(e, 'editDoctor')}
             variant="outlined"
             fullWidth
             SelectProps={{
@@ -99,7 +99,7 @@ const EditWidnow = (props) => {
             value={editDate}
             variant="outlined"
             fullWidth
-            onChange={(e) => handleEditDateChange(e)}
+            onChange={(e) => handleChangeAppoint(e, 'editDate')}
           />
           <DialogContentText>Жалобы:</DialogContentText>
           <TextField
@@ -109,7 +109,7 @@ const EditWidnow = (props) => {
             value={editComplaint}
             variant="outlined"
             fullWidth
-            onChange={(e) => handleEditComplaintChange(e)}
+            onChange={(e) => handleChangeAppoint(e, 'editComplaint')}
           />
         </DialogContent>
         <DialogActions>

@@ -1,14 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent, 
+  DialogContentText,
+  DialogTitle } from '@material-ui/core';
 
 const DeleteWindow = (props) => {
-  const { whatEdit, 
+  const { 
+    whatEdit, 
     openDialogDelete, 
     setOpenDialogDelete,
     getAppoints 
@@ -21,7 +23,7 @@ const DeleteWindow = (props) => {
   const handleDelete = async () => {
     await axios.delete(`http://localhost:8000/deleteAppoint?_id=${whatEdit._id}`)
       .then(res => getAppoints() )
-      .catch(err => console.log('что-то пошло не так'));
+      .catch(err => console.log(err));
     setOpenDialogDelete(false);
   };
 
@@ -29,14 +31,16 @@ const DeleteWindow = (props) => {
     <div>
       <Dialog open={openDialogDelete}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title">
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Удалить прием</DialogTitle>
         <DialogContent>
           <DialogContentText>Вы действительно хотите удалить прием?</DialogContentText>
           <DialogActions>
             <Button
               onClick={() => handleClose()}
-              color="primary">
+              color="primary"
+            >
               Cancel
             </Button>
             <Button onClick={() => handleDelete()} color="primary">

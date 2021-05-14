@@ -14,8 +14,8 @@ import {
 import MuiAlert from '@material-ui/lab/Alert';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import logo from '../img/logo.png';
-import bigLogo from '../img/bigLogo.png';
+import logo from '../../img/logo.png';
+import bigLogo from '../../img/bigLogo.png';
 import './Registr.scss';
 
 const Registr = () => {
@@ -59,7 +59,7 @@ const Registr = () => {
   const handleLoginBlur = () => {
     if (login) {
       const correctValue = (/^[A-Za-z0-9]{6,}$/.test(login));
-      setValues({ ...values, loginError: !correctValue, noLogin: !correctValue });
+      setValues({ ...values, loginError: !correctValue, noLogin: false });
     };
   };
 
@@ -74,7 +74,7 @@ const Registr = () => {
   const handlePasswordBlur = () => {
     if (password) {
       const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password));
-      setValues({ ...values, passwordError: !correctValue1, noPassword: !correctValue1 });
+      setValues({ ...values, passwordError: !correctValue1, noPassword: false });
     };
   };
 

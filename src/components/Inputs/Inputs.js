@@ -9,7 +9,7 @@ import './Inputs.scss';
 import axios from 'axios';
 
 const Inputs = (props) => {
-
+  const {getAppoints, allDoctors, appoints } = props
   let dateTemp2 = null;
   let firstDate = null;
   let dateTemp = new Date().toLocaleDateString();
@@ -41,11 +41,11 @@ const Inputs = (props) => {
 
   const handleDoctorChange = (e) => {
     setValues({ ...values, doctor: e.target.value });
-  }
+  };
 
   const handleComplaintChange = (e) => {
     setValues({ ...values, complaint: e.target.value });
-  }
+  };
 
   const handleClickToAppoint = async () => {
     await axios.post('http://localhost:8000/addNewAppoint', {
@@ -53,7 +53,7 @@ const Inputs = (props) => {
       doctor: doctor,
       date: date,
       complaint: complaint
-    }).then(res => { props.getAppoints() })
+    }).then(res => { getAppoints(); console.log(' в Inputs', appoints) })
       .catch(err => console.log('что-то пошло не так'));
     setValues({ ...values, fio: '', doctor: '', date: firstDate, complaint: '' });
   }
@@ -82,7 +82,7 @@ const Inputs = (props) => {
             }}
             variant="outlined"
           >
-            {props.allDoctors.map((option) => (
+            {allDoctors.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>

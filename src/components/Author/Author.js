@@ -14,8 +14,8 @@ import {
 import MuiAlert from '@material-ui/lab/Alert';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import logo from '../img/logo.png';
-import bigLogo from '../img/bigLogo.png';
+import logo from '../../img/logo.png';
+import bigLogo from '../../img/bigLogo.png';
 import './Author.scss';
 
 const Author = () => {
