@@ -1,0 +1,81 @@
+.MuiContainer-root.my-wrapper-table {
+  background-color: #C5E9FF; 
+  width: 100vw;
+  height: 69vh;
+  min-height: 150px;
+  box-shadow: inset 0px 15px 7px -5px rgba(128,128,128,0.5);
+  max-width: none;
+  flex-direction: column;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0px;
+
+  .sort-filter-div {
+    display:inline-flex;
+    width: 85%;
+    justify-content: flex-end;
+    margin: 20px 0;
+  }
+
+ .div-input-date-filter {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid orange;
+
+    img {
+      width: 9%
+    }
+  }
+  
+  .label-input-inputs {
+    width: 15%;
+    min-width: 150px;
+    height:100px ;
+    
+    .MuiInputBase-root.input input{
+      background-color: rgb(180, 39, 39);
+      border-radius: 4px;
+      padding: 0px;
+      height: 100%;
+    }
+  }
+
+  button {
+    background-color: white;
+    border-radius: 4px;
+    height: 10%;
+  }
+}
+
+.div-add-date-filter {
+  display: inline-flex;
+  width: 30%;
+  border: 1px solid red;
+
+  img {
+    width: 12%;
+    margin-left: 20px;
+  }
+}
+
+.MuiTableContainer-root.my-table {
+  width: 85%;
+  .conteiner-for-img {
+    width: 25%;
+    display: flex;
+   
+    img {
+      width: 30px;
+      padding-left: 10px;
+
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .MuiContainer-root.my-wrapper-inputs  {
+    height: 10vh;
+  }
+}

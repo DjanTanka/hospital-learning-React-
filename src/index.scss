@@ -8,217 +8,8 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
 }
-
-// .MuiPaper-elevation4.app {
-//   box-shadow: none;
-// }
-
-// .MuiAppBar-colorPrimary.app {
-//   background-color: #C5E9FF;
-//   width: 100%;
-//   // min-width: 990px;
-//   // height: 15%;
-//   margin: 0 auto;
-// }
-
-// .MuiToolbar-root.myToolBar {
-//   background-color :#C5E9FF;
-//   width: 100%;
-//   // min-width: 990px;
-//   // height:20%;
-//   margin: 0 auto;
-//   padding: 0px;
-// }
-
-// .MuiIconButton-root.menuButton {
-//   margin-right: 50px;
-//   padding-left: 45px 
-// }
-
-// .MuiTypography-root.title {
-//   font-family: Roboto;
-//   font-style: normal;
-//   font-weight: 300;
-//   font-size: 36px;
-//   line-height: 42px;
-//   color: black;
-//   padding-left: 75px;
-// }
-
-// .MuiContainer-root.container {
-//   background-color:#C5E9FF;
-//   height: 91vh;
-//   min-height: 590px;
-//   width: 100%;
-//   min-width: 990px;
-//   margin: 0 auto;
-//   display: flex;
-//   justify-content: space-around;
-//   box-shadow: inset 0px 15px 7px -5px rgba(128,128,128,0.5);
-//   align-items: center;
-  
-//   img {
-//     margin-left: 50px;
-//     margin-right: 20px;
-//     width: 30%;
-//     // min-width: 500px;
-//   }
-
-//   .registrationDiv {
-//     width: 55%;
-//     // max-width: 500px;
-//     // min-width: 400px;
-//     height: 60%;
-//     min-height: 500px;
-//     background: white;
-//     text-align: center;
-//     border-radius: 5px;
-//     margin-right: 40px;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-around;
-//     align-items: center;
-
-//     .containerh1 {
-//       font-family: Roboto;
-//       font-style: normal;
-//       font-weight: 300;
-//       font-size: 36px;
-//       line-height: 42px;
-//     }
-
-//     .my-style-error{
-//       background-color: #C5E9FF;;
-//       width: 80%;
-//       // max-width: 400px;
-//       font-weight: 300;
-//       color: black;
-//       font-size: 12px;
-//       padding: 0px;
-//       position: relative;
-//       z-index: 2;
-//       // top: -55px;
-//     }
-
-//     .labelInput {
-//       display: flex;
-//       flex-direction: column;
-//       width: 80%;
-//       max-height: 50px;
-      
-
-//       label {
-//         font-family: Roboto;
-//         font-style: normal;
-//         font-weight: 300;
-//         text-align: left;
-//         margin: 5px;
-//         width: 50%;
-//       } 
-      
-//       .MuiInputBase-root.input {
-//         width: 100%;
-//         // max-width: 400px;
-//         height: 6%;
-//         min-height: 40px;
-//         max-height: 50px;
-//       }      
-//     }
-  
-//     .registrationButtons {
-//       text-align: left;
-//       width: 100%;
-//       display: flex;
-//       flex-direction: column;
-//       align-items: flex-end;
-//       margin-top: 0px;
-  
-//       button {
-//         font-family: Roboto;
-//         font-style: normal;
-//         font-weight: 300;
-//         line-height: 42px;
-//         margin-right: 40px;
-//         height: 40px;
-//         text-transform: none;
-//         font-size: 18px;
-//         margin-bottom: 5px;
-//       }
-//     }
-//   }
-// }
-
-// .MuiOutlinedInput-notchedOutline {
-//   border-color: red;
-// }
-
-// @media (min-width: 1280px) {
-//   .container.MuiContainer-maxWidthLg {
-//     max-width: none;
-//   }
-// }
-
-// @media screen and (max-width: 575px) {
-
-//   .MuiAppBar-colorPrimary.app {
-//     width: 100%;
-//     // max-width: none;
-//     // min-width: 280px;
-//   }
-
-//   .MuiToolbar-root.myToolBar {
-//     width: 100%;
-//     // max-width: none;
-//     // min-width: 280px;
-  
-//   }
-
-//   .MuiIconButton-root.menuButton {
-//     margin-right: 0px;
-//     padding-left: 20px;
-//     margin-left: 10px;
-//   }
-
-//   .MuiTypography-root.title {
-//     font-size: 32px;
-//     width: 50%;
-//     text-align: center;
-//     padding-left: 15px;
-//   }
-
-//   .MuiAppBar-colorPrimary.app {
-//     width: 100%;
-//     // max-width: none;
-//     // min-width: 280px;
-//     height: 100px;
-//   }
-
-//   .MuiContainer-root.container {
-//     height: 624px;
-//     min-height: 300px;
-//     width: 100%;
-//     // max-width: none;
-//     // min-width: 280px;
-    
-//     img {
-//       display: none;
-//     }
-
-//     .registrationDiv {
-//       width: 74%;
-//       height: 90%;
-//       margin-right: 0px;
-//     }
-
-//     .MuiInputBase-root.input {
-//       width: 100%;
-//       height: 40px;
-//     }
-//   }
-// }
 
 .MuiPaper-root.my-app {
   background-color: #C5E9FF;
@@ -232,8 +23,8 @@ code {
   box-shadow: none;
 
   img {
-    width: 10vw;
-    max-width: 120px;
+    width: 10%;
+    min-width: 120px;
     margin-right: 3rem;
   }
 
@@ -244,13 +35,54 @@ code {
     font-weight: 300;
     font-size: calc(16px + 22 * (100vw / 989));
     line-height: 1.5em;
-  };
-};
+  }
+}
+
+.label-input {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-height: 50px;
+  position: relative;
+  
+  label {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    text-align: left;
+    margin: 5px;
+    width: 50%;
+  }
+
+  .my-style-error {
+    background-color: #C5E9FF;;
+    width: 100%;
+    font-weight: 300;
+    color: black;
+    font-size: 12px;
+    padding: 0px;
+    position: absolute;
+    z-index: 99;
+    top: 69px;
+  }
+
+  .my-style-error-none {
+    display: none;
+  }
+  
+  .MuiInputBase-root.input {
+    width: 100%;
+    height: 2.7em;
+    min-height: 40px;
+    max-height: 50px;
+  }  
+}
 
 .MuiContainer-root.my-wrapper {
   background-color: #C5E9FF; 
   width: 100vw;
   height: 85vh;
+  min-height: 550px;
   box-shadow: inset 0px 15px 7px -5px rgba(128,128,128,0.5);
   max-width: none;
   display: flex;
@@ -266,8 +98,7 @@ code {
   }
 
   .div-registration {
-    width: 55%;
-    max-width: 500px;
+    width: 30%;
     min-width: 400px;
     height: 60%;
     min-height: 500px;
@@ -281,7 +112,7 @@ code {
     align-items: center;
     margin: 0 20px;
 
-    .containerh1 {
+    .container-h1 {
       font-family: Roboto;
       font-style: normal;
       font-weight: 300;
@@ -290,31 +121,7 @@ code {
       margin: 0.5em;
     }
 
-    .labelInput {
-      display: flex;
-      flex-direction: column;
-      width: 80%;
-      max-height: 50px;
-      
-      label {
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 300;
-        text-align: left;
-        margin: 5px;
-        width: 50%;
-      } 
-      
-      .MuiInputBase-root.input {
-        width: 100%;
-        max-width: 400px;
-        height: 2.7em;
-        min-height: 40px;
-        max-height: 50px;
-      }      
-    }
-  
-    .registrationButtons {
+    .registration-buttons {
       text-align: left;
       width: 100%;
       display: flex;
@@ -332,26 +139,30 @@ code {
         text-transform: none;
         font-size: 18px;
         margin-bottom: 5px;
-      };
-    };
-  };
-};
+      }
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .container.MuiContainer-maxWidthLg {
+    max-width: none;
+  }
+}
 
 @media screen and (max-width: 1024px) {
-
   .MuiPaper-root.my-app {   
     img {
       width: 15vw;
-    };
-  };
+    }
+  }
 
   .MuiContainer-root {
     height: 85vh;     
-  };
-};
+  }
+}
 
 @media screen and (max-width: 575px) {
-
   .MuiPaper-root.my-app { 
     height: 10vh;
     min-height: 100px;
@@ -359,30 +170,30 @@ code {
     img {
       width: 20vw;
       margin-right: 0;
-    };
-  };
+    }
+  }
 
   .MuiContainer-root.my-wrapper {
     height: calc(90vh - (100px - 10vh));  
 
     img {
       display: none;
-    };
+    }
 
     .div-registration {
       margin: 0px;
       width: 90%;
       min-width: 300px;
-    };
-  };
-};
+    }
+  }
+}
 
 @media screen and (max-width: 321px) {
   .MuiPaper-root.my-app { 
     .MuiTypography-root {
       font-size: calc(12px + 22 * (100vw / 989));
-    };
-  };
+    }
+  }
   
   .MuiContainer-root.my-wrapper {
     .div-registration {
@@ -391,33 +202,38 @@ code {
       height: 300px;
       min-height: 400px;
 
-      .containerh1 {
+      .container-h1 {
         font-size: 1.6em;
-      };
+      }
   
-      .labelInput {
+      .label-input {
         label {
           width:70%;
-        };
+        }
         .MuiInputBase-root.input {
         min-height: 30px;
-        };
-      };
+        }
+      }
 
-      .registrationButtons {
+      .registration-buttons {
         button {
           margin-right: 29px;
-        };
-      };
-    };
-  };
-};
+        }
+      }
+    }
+  }
+}
 
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 281px) {
   .MuiPaper-root.my-app { 
     height: 8vh;
     min-height: 80px;
-  };
+
+    img {
+      width: 80%;
+      min-width: 0px;
+    }
+  }
 
   .MuiContainer-root.my-wrapper {
     height: calc(92vh - (80px - 8vh));  
@@ -425,15 +241,14 @@ code {
     .div-registration {
       min-width: 260px;
       
-      .registrationButtons {
+      .registration-buttons {
         button {
           height: 30px;
           width: 77%;
           margin-right: 29px;
-        };
-      };
-
-    };
-  };
-};
+        }
+      }
+    }
+  }
+}
 

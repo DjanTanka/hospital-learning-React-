@@ -1,0 +1,46 @@
+.MuiContainer-root.my-wrapper-inputs {
+  background-color: #C5E9FF; 
+  width: 100vw;
+  
+  min-height: 150px;
+  box-shadow: inset 0px 15px 7px -5px rgba(128,128,128,0.5);
+  max-width: none;
+  flex-direction: row;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0px;
+  
+  .label-input-inputs {
+    width: 15%;
+    min-width: 150px;
+    height:100px ;
+    
+    .MuiInputBase-root.input input{
+      background-color: rgb(180, 39, 39);
+      border-radius: 4px;
+      padding: 0px;
+      height: 100%;
+
+    }
+    .MuiTextField-root.input .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: red !important;
+      outline: none !important;
+    }
+  }
+
+  button {
+    background-color: white;
+    border-radius: 4px;
+    height: 10%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .MuiContainer-root.my-wrapper-inputs  {
+    height: 10vh;
+  }
+}
+
+  

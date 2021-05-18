@@ -1,7 +1,7 @@
 import  { Switch, Route, Redirect } from 'react-router-dom';
-import Author from './components/Author.js';
-import Registr from './components/Registr.js';
-import Appoint from './components/Appoint.js';
+import Author from './components/Author/Author.js';
+import Registr from './components/Registr/Registr.js';
+import Appoint from './components/Appoint/Appoint.js';
 
 function App() { 
   const loca = JSON.parse(localStorage.getItem('userEntered'));

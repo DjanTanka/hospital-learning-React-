@@ -14,8 +14,8 @@ import {
 import MuiAlert from '@material-ui/lab/Alert';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import logo from '../img/logo.png';
-import bigLogo from '../img/bigLogo.png';
+import logo from '../../img/logo.png';
+import bigLogo from '../../img/bigLogo.png';
 import './Author.scss';
 
 const Author = () => {
@@ -27,10 +27,20 @@ const Author = () => {
     loginNotFound: false,
     password: '',
     passwordError: true,
-    repeatPassword: '',
-    rightRepeatPassword: false,
     showPassword: false,
+    noLogin: false,
+    noPassword: false,
   });
+
+  const { login,
+    loginError,
+    loginNotFound,
+    password,
+    passwordError,
+    showPassword,
+    noLogin,
+    noPassword
+  } = values;
   
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -41,14 +51,14 @@ const Author = () => {
   };
 
   const handleLoginBlur = () => {
-    if (values.login) {
-      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(values.login));
-      setValues({ ...values, loginError: correctValue });
+    if (login) {
+      const correctValue = (/^[A-Za-z0-9]{6,}$/.test(login));
+      setValues({ ...values, loginError: !correctValue });
     };
   };
 
   const handleLoginFocus = () => {
-    setValues({ ...values, loginError: true, loginNotFound: false });
+    setValues({ ...values, loginError: false, loginNotFound: false, noLogin: false });
   };
 
   const handlePassword = (e) => {
@@ -56,18 +66,18 @@ const Author = () => {
   };
 
   const handlePasswordBlur = () => {
-    if (values.password) {
-      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(values.password));
-      setValues({ ...values, passwordError: correctValue1 });
+    if (password) {
+      const correctValue1 = (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password));
+      setValues({ ...values, passwordError: !correctValue1 });
     };
   };
 
   const handlePasswordFocus = () => {
-    setValues({ ...values, passwordError: true });
+    setValues({ ...values, passwordError: false, noPassword: false });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setValues({ ...values, showPassword: !showPassword });
   };
 
   const goToRegistr = () => {
@@ -75,24 +85,19 @@ const Author = () => {
   };
 
   const funcAuthorization = async (values) => {
-    const {login, 
-      loginError,
-      password,
-      passwordError,
-    } = values;
-    if (login
-      &&loginError
-      &&password
-      &&passwordError) {
+    if (!loginError && !passwordError) {
       await axios.post('http://localhost:8000/userEnter', {
         login: login,
         password: password
-      }).then(res => {localStorage.setItem('userEntered', JSON.stringify(login)); history.push('/appoint')})
-        .catch(err => setValues({ ...values, loginNotFound: true}))
+      }).then(res => {
+          localStorage.setItem('userEntered', JSON.stringify(login)); 
+          history.push('/appoint');
+        })
+        .catch(err => setValues({ ...values, loginNotFound: true}));
     } if (login && !password) {
-      alert('введите пароль');
+      setValues({ ...values, noPassword: true });//alert('введите пароль');
     } if (!login && password) {
-      alert('введите логин');
+      setValues({ ...values, noLogin: true });//alert('введите логин');
     };
   };
   
@@ -100,7 +105,7 @@ const Author = () => {
     <div> 
       <AppBar position="static" className='my-app'>
         <Toolbar className="myToolBar">
-          <IconButton edge="start" className='menuButton' aria-label="menu">
+          <IconButton edge="start" className='menu-button' aria-label="menu">
             <img src={logo} alt='mainLo'/>
           </IconButton>
           <Typography className='title'>
@@ -110,41 +115,45 @@ const Author = () => {
       </AppBar>
       <Container className='my-wrapper'>
         <img src={bigLogo} alt='bigLogo' />
-        <div className='registrationDivAuthor'>
-          <h1 className='containerh1'> Войти в систему</h1>
-          <div className="labelInput">
+        <div className='div-registration-author'>
+          <h1 className='container-h1'> Войти в систему</h1>
+          <div className="label-input">
             <label>Login:</label>
             <OutlinedInput
               className="input"
               placeholder="Login"
               id="login"
-              value={values.login}
+              value={login}
               onChange={(e) => handleChangeLogin(e)}
               onBlur={() => handleLoginBlur()}
               onFocus={() => handleLoginFocus()}
             />
-            {
-              values.loginNotFound && 
-              <Alert severity="error" className='myStyleError'> 
+             <Alert
+                severity="error"
+                className={`my-style-error ${!noLogin ? 'my-style-error-none' : ''}`}
+              >
+                Введите логин
+            </Alert>
+            {loginNotFound && 
+              <Alert severity="error" className='my-style-error'> 
                 Логин или пароль введены неверно
               </Alert>
             }
             <Alert
               severity="error"
-              className='myStyleError'
-              style={{display: values.loginError ? 'none': 'flex' }}
+              className={`my-style-error ${!loginError || !login ? 'my-style-error-none' : ''}`}
             >   
               Пароль должен состоять минимум из 6 символов латинского алфавита и содержать минимум 1 цифру
             </Alert>
           </div>
-          <div className="labelInput">
+          <div className="label-input">
             <label>Password:</label>
             <OutlinedInput 
               className="input"
               placeholder="Password"
               id="password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
+              type={showPassword ? 'text' : 'password'}
+              value={password}
               onChange={(e) => handlePassword(e)}
               onBlur={() => handlePasswordBlur()}
               onFocus={() => handlePasswordFocus()}
@@ -154,25 +163,30 @@ const Author = () => {
                     onClick={() => handleClickShowPassword()}
                     edge="end"
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
             />
             <Alert
               severity="error"
-              className='myStyleError'
-              style = {{display: values.passwordError ? 'none' : 'flex', zIndex: "10"}}
+              className={`my-style-error ${!password || !passwordError ? 'my-style-error-none' : ''}`}
             >   
-              Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+                Пароль должен содержать минимум 6 символов латинского алфавита и минимум 1 цифру
+            </Alert>
+            <Alert
+              severity="error"
+              className={`my-style-error ${!noPassword ? 'my-style-error-none' : ''}`}
+              >
+                Введите пароль
             </Alert>
           </div>
-          <div className="registrationButtons">
+          <div className="registration-buttons">
             <Button 
               variant="outlined" 
               onClick ={() => funcAuthorization(values)}
             >
-              Войти
+                Войти
             </Button>
             <Button onClick ={() => goToRegistr()}>Зарегистрироваться</Button>
           </div>
